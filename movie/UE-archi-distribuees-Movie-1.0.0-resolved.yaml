@@ -179,6 +179,35 @@ paths:
           description: rate updated
         "400":
           description: movie ID not found
+  /movies/{movieid}/{title}:
+    put:
+      tags:
+      - developers
+      summary: update a movie title
+      description: update the title of a movie
+      operationId: update_movie_title
+      parameters:
+      - name: movieid
+        in: path
+        description: Movie ID.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: title
+        in: path
+        description: Movie title.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: title updated
+        "400":
+          description: movie ID not found
 components:
   schemas:
     AllMovies:
