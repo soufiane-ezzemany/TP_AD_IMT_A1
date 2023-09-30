@@ -75,7 +75,7 @@ def update_movie_rating(movieid, rate):
     return res
 
 @app.route("/movies/<movieid>/<title>", methods=['PUT'])
-def update_movie_rating(movieid, title):
+def update_movie_title(movieid, title):
     for movie in movies:
         if str(movie["id"]) == str(movieid):
             movie["title"] = str(title)
