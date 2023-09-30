@@ -34,19 +34,29 @@ paths:
       tags:
         - developers
       summary: get the user by his ID
+      description: By passing in the appropriate options, you can get information about an user
       operationId: get_user_by_id
+      parameters:
+        - name: userid
+          in: path
+          description: User ID.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
       responses:
         "200":
           description: user
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/user'
+                $ref: '#components/schemas/User'
         "400":
           description: bad input parameter
 components:
   schemas:
-    user:
+    User:
       required:
         - id
         - name
