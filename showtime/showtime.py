@@ -15,12 +15,12 @@ def home():
    return "<h1>Test</h1>"
 
 @app.route("/showtimes", methods=['GET'])
-def get_json():
+def get_schedule():
    res = make_response(jsonify(schedules), 200)
    return res
 
 @app.route("/showtimes/<date>", methods=['GET'])
-def get_schedule_by_date(date):
+def get_movies_bydate(date):
     for schedule in schedules:
         if str(schedule["date"]) == str(date):
             res = make_response(jsonify(schedule),200)
