@@ -63,11 +63,6 @@ def add_booking_byuser(userid):
    else:
        return make_response(jsonify({"error": "Couldn't add booking for the user"}), 400)
 
-@app.route("/bookings/<userId>", methods=['GET'])
-def getBookings(userId):
-   return "<h1 style='color:blue'>Welcome to the Booking service!</h1>"
-
-
 if __name__ == "__main__":
    print("Server running in port %s"%(PORT))
    app.run(host=HOST, port=PORT)
