@@ -1,0 +1,65 @@
+---
+openapi: 3.1.0
+info:
+  title: User API
+  description: This is the API of the User service
+  contact:
+    email: quentin.legoff44@gmail.com
+  license:
+    name: GPL v3
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  version: 1.0.0
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+paths:
+  /:
+    get:
+      tags:
+      - developers
+      summary: home page of the service
+      operationId: home
+      responses:
+        "200":
+          description: welcome message
+          content:
+            text/html:
+              schema:
+                type: string
+                example: <h1>Welcome to the User service!</h1>
+  /users/{userId}:
+    get:
+      tags:
+        - developers
+      summary: get the user by his ID
+      operationId: get_user_by_id
+      responses:
+        "200":
+          description: user
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/user'
+        "400":
+          description: bad input parameter
+components:
+  schemas:
+    user:
+      required:
+        - id
+        - name
+        - last_active
+      type: object
+      properties:
+        id:
+          type: string
+          example: "chris_rivers"
+        name:
+          type: string
+          example: "Chris Rivers"
+        last_active:
+          type: int
+          example: 1360031010
+
