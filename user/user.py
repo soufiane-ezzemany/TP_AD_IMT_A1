@@ -23,6 +23,27 @@ def get_user_by_id(userId):
          return res
    return make_response(jsonify({"error": "No user with this ID"}), 400)
 
+@app.route("/user/reservations/<userId>", methods=['GET'])
+def get_reservations_by_id(userId):
+   urlBookings = f"http://{request.remote_addr}:3201/bookings/{userId}"
+   bookingsReq = requests.get(urlBookings)
+
+   if bookingsReq.status_code == 200:
+      bookings = bookingsReq.json()
+      for reservation in bookings["dates"]:
+         reservation["movieData"] = []
+         for movie in reservation["movies"]:
+            urlMovies = f"http://{request.remote_addr}:3200/movies/{movie}"
+            moviesReq = requests.get(urlMovies)
+            if moviesReq.status_code == 200:
+               movieData = moviesReq.json()
+               reservation["movieData"].append(movieData)
+            else:
+               return make_response(jsonify({"error": "No movies found"}), 400)
+
+      return bookings
+   else:
+      return make_response(jsonify({"error": "No bookings found for this user"}), 400)
 
 
 if __name__ == "__main__":
