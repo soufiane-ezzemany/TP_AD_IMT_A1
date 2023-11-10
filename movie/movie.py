@@ -50,7 +50,6 @@ def get_movie_bytitle():
     else:
         res = make_response(jsonify(json),200)
     return res
-
 @app.route("/movies/<movieid>", methods=['POST'])
 def create_movie(movieid):
     req = request.get_json()

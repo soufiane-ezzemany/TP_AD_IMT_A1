@@ -5,6 +5,7 @@ from werkzeug.exceptions import NotFound
 
 app = Flask(__name__)
 
+
 PORT = 3203
 HOST = '0.0.0.0'
 
@@ -23,8 +24,9 @@ def get_user_by_id(userId):
          return res
    return make_response(jsonify({"error": "No user with this ID"}), 400)
 
-@app.route("/user/reservations/<userId>", methods=['GET'])
-def get_reservations_by_id(userId):
+
+@app.route("/user/<userId>/reservations", methods=['GET'])
+def get_user_reservations_by_id(userId):
    urlBookings = f"http://{request.remote_addr}:3201/bookings/{userId}"
    bookingsReq = requests.get(urlBookings)
 

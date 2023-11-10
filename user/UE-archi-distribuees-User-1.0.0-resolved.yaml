@@ -29,7 +29,7 @@ paths:
               schema:
                 type: string
                 example: <h1>Welcome to the User service!</h1>
-  /users/{userId}:
+  /user/{userId}:
     get:
       tags:
         - developers
@@ -54,6 +54,32 @@ paths:
                 $ref: '#components/schemas/User'
         "400":
           description: bad input parameter
+  /user/{userId}/reservations:
+    get:
+      tags:
+        - developers
+      summary: get the user's reservations
+      description: By passing in the appropriate option, you can get information about user's reservations with movie information
+      operationId: get_user_reservations_by_id
+      parameters:
+        - name: userid
+          in: path
+          description: User ID.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: information about the user's reservation
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Reservations'
+        "400":
+          description: bad input parameter
+
 components:
   schemas:
     User:
@@ -72,4 +98,44 @@ components:
         last_active:
           type: int
           example: 1360031010
+    Reservations:
+      type: object
+      properties:
+        userid:
+          type: string
+          example: "dwight_schrute"
+        dates:
+          type: array
+          items:
+            $ref: '#/components/schemas/DateReservationInfo'
+    DateReservationInfo:
+      type: object
+      properties:
+        date:
+          type: string
+          example: "20151201"
+        movieData:
+          type: array
+          items:
+            $ref: '#/components/schemas/Movie'
+        movies:
+          type: array
+          items:
+            type: string
+            example: "7daf7208-be4d-4944-a3ae-c1c2f516f3e6"
+    Movie:
+      type: object
+      properties:
+        title:
+          type: string
+          example: The Martian
+        rating:
+          type: integer
+          example: 7
+        director:
+          type: string
+          example: Paul McGuigan
+        id:
+          type: string
+          example: 39ab85e5-5e8e-4dc5-afea-65dc368bd7ab
 
