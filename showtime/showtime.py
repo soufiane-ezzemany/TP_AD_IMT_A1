@@ -12,7 +12,7 @@ with open('{}/databases/times.json'.format("."), "r") as jsf:
 
 @app.route("/", methods=['GET'])
 def home():
-   return "<h1>Test</h1>"
+   return "<h1>Welcome to the showtime service</h1>"
 
 @app.route("/showtimes", methods=['GET'])
 def get_schedule():

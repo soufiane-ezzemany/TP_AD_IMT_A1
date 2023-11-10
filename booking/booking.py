@@ -13,7 +13,7 @@ with open('{}/databases/bookings.json'.format("."), "r") as jsf:
 
 @app.route("/", methods=['GET'])
 def home():
-   return "<h1>Test</h1>"
+   return "<h1>Welcome to the booking service!</h1>"
 
 @app.route("/bookings", methods=['GET'])
 def get_json():
