@@ -35,8 +35,14 @@ def get_user_reservations_by_id(userId):
       for reservation in bookings["dates"]:
          reservation["movieData"] = []
          for movie in reservation["movies"]:
-            urlMovies = f"http://{request.remote_addr}:3200/movies/{movie}"
-            moviesReq = requests.get(urlMovies)
+            query = f'''
+            {{
+                movie_with_id(_id: "{movie}") {{
+                  id,title,director,rating
+                }}
+            }}
+            '''
+            moviesReq = requests.post(f"http://{request.remote_addr}:3200/graphql",json={'query': query}) # GraphQL
             if moviesReq.status_code == 200:
                movieData = moviesReq.json()
                reservation["movieData"].append(movieData)
