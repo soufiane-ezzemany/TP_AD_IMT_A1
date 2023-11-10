@@ -30,7 +30,7 @@ type Movie {
 input MovieInput {
     id: String!
     title: String!
-    director: String
+    director: String!
     rating: Float
 }
 

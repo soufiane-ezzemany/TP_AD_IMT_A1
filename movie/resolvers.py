@@ -1,4 +1,5 @@
 import json
+from graphql import GraphQLError
 
 # get the movie based on the id
 def movie_with_id(_,info,_id):
@@ -7,6 +8,7 @@ def movie_with_id(_,info,_id):
         for movie in movies['movies']:
             if movie['id'] == _id:
                 return movie
+        raise GraphQLError("No movie found")
 
 # get the actor based on the id
 def actor_with_id(_,info,_id):
@@ -15,6 +17,7 @@ def actor_with_id(_,info,_id):
         for actor in actors['actors']:
             if actor['id'] == _id:
                 return actor
+        raise GraphQLError("No actor found")
 
 # get qll the movies in the db
 def all_movies(_,info):
@@ -35,6 +38,7 @@ def update_movie_rate(_,info,_id,_rate):
                 newmovies = movies
     with open('{}/data/movies.json'.format("."), "w") as wfile:
         json.dump(newmovies, wfile)
+    wfile.close()
     return newmovie
 
 # resolver to find the actors inside a movie
@@ -48,7 +52,13 @@ def resolve_actors_in_movie(movie, info):
 def create_movie(_,info, _movie):
     with open('{}/data/movies.json'.format("."), "r") as rfile:
         movies = json.load(rfile)
-        movies.append(_movie)
+        # check if the movie id exists
+        for movie in movies['movies']:
+            if movie['id'] == _movie['id']:
+                raise GraphQLError("Movie with same id already exists")
+        _movie['rating'] = _movie.get('rating', 0.0)
+        print(_movie)
+        movies["movies"].append(_movie)
     with open('{}/data/movies.json'.format("."), "w") as wfile:
         json.dump(movies, wfile)
     wfile.close()
