@@ -6,7 +6,7 @@ service Showtime {
 }
 
 message Date {
-    string id = 1;
+    string date = 1;
 }
 
 message ScheduleData {
