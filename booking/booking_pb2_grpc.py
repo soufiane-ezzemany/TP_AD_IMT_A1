@@ -16,7 +16,7 @@ class BookingStub(object):
         """
         self.GetBookings = channel.unary_stream(
                 '/Booking/GetBookings',
-                request_serializer=booking__pb2.Empty.SerializeToString,
+                request_serializer=booking__pb2.EmptyInput.SerializeToString,
                 response_deserializer=booking__pb2.BookingData.FromString,
                 )
         self.GetBookingForUser = channel.unary_unary(
@@ -26,7 +26,7 @@ class BookingStub(object):
                 )
         self.AddBookingForUser = channel.unary_unary(
                 '/Booking/AddBookingForUser',
-                request_serializer=booking__pb2.BookingData.SerializeToString,
+                request_serializer=booking__pb2.NewBookingData.SerializeToString,
                 response_deserializer=booking__pb2.Response.FromString,
                 )
 
@@ -57,7 +57,7 @@ def add_BookingServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetBookings': grpc.unary_stream_rpc_method_handler(
                     servicer.GetBookings,
-                    request_deserializer=booking__pb2.Empty.FromString,
+                    request_deserializer=booking__pb2.EmptyInput.FromString,
                     response_serializer=booking__pb2.BookingData.SerializeToString,
             ),
             'GetBookingForUser': grpc.unary_unary_rpc_method_handler(
@@ -67,7 +67,7 @@ def add_BookingServicer_to_server(servicer, server):
             ),
             'AddBookingForUser': grpc.unary_unary_rpc_method_handler(
                     servicer.AddBookingForUser,
-                    request_deserializer=booking__pb2.BookingData.FromString,
+                    request_deserializer=booking__pb2.NewBookingData.FromString,
                     response_serializer=booking__pb2.Response.SerializeToString,
             ),
     }
@@ -92,7 +92,7 @@ class Booking(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/Booking/GetBookings',
-            booking__pb2.Empty.SerializeToString,
+            booking__pb2.EmptyInput.SerializeToString,
             booking__pb2.BookingData.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -126,7 +126,7 @@ class Booking(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Booking/AddBookingForUser',
-            booking__pb2.BookingData.SerializeToString,
+            booking__pb2.NewBookingData.SerializeToString,
             booking__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
