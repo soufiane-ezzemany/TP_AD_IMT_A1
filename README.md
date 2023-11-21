@@ -3,7 +3,7 @@
 ## Project Overview
 This project focused on building microservices using Flask. In this project, we explore and implement three different communication protocols - REST APIs, GraphQL, and gRPC - to demonstrate the versatility and scalability of microservices architecture.
 
-![ARCHITECTURE](https://helene-coullon.fr/images/graphql.png)
+[![img.jpg](https://i.postimg.cc/Kjm0W4j7/img.jpg)](https://postimg.cc/ftg7tzxk)
 
 ## Services
 ### User
